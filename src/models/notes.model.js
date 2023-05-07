@@ -1,13 +1,13 @@
 module.exports = (sequelize, Sequelize) => {
-    const Note = sequelize.define("note", {
+    const Note = sequelize.define("notes", {
         date : {
-            type: Sequelize.DATETIME
+            type: Sequelize.DATE
         },
         title: {
             type: Sequelize.STRING
         },
         content: {
-            type: Sequelize.LONGTEXT
+            type: Sequelize.TEXT('long')
         },
         status : {
             type: Sequelize.ENUM('favorites', 'trash', 'archive')
@@ -17,7 +17,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         user_id : {
             type: Sequelize.INTEGER
-        }
+        },
+    }, {
+        timestamps: false
     });
     return Note;
 }

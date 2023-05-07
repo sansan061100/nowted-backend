@@ -21,7 +21,7 @@ const sequelize = new Sequelize(
 
 const db = {};
 
-db.notes = require("./note.js")(sequelize, Sequelize);
+db.notes = require("./notes.model.js")(sequelize, Sequelize);
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
