@@ -5,60 +5,74 @@ const { Validator } = require('node-input-validator');
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
-    create : (req, res) => {
-  
-    },
-    
-    // Retrieve all Tutorials from the database.
-    findAll : (req, res) => {
+    findAll: (req, res) => {
         Folder.findAll()
-        .then(data => {
-            res.send({
-                status : 'success',
-                message : 'Success get all data',
-                data : data
+            .then(data => {
+                res.send({
+                    status: 'success',
+                    message: 'Success get all data',
+                    payload: data
+                })
             })
-        })
-        .catch(err => {
-            res.status(500).send({
-            message:
-                err.message
+            .catch(err => {
+                res.status(500).send({
+                    status: "error",
+                    message:
+                        err.message
+                });
             });
-        });
     },
 
-    create : (req, res) => {
+    create: (req, res) => {
         const v = new Validator(req.body, {
-            name : 'required|email'
+            name: 'required'
         });
 
         v.check().then((matched) => {
-            if(!matched){
+            if (!matched) {
                 res.status(422).send(v.errors);
             }
             else {
                 let id = uuidv4();
 
                 const folder = {
-                    id : id,
-                    name : req.body.name,
-                    user_id : "60e21bf3-94a4-42ac-9bbc-c2ee332bc9ed",
+                    id: id,
+                    name: req.body.name,
+                    user_id: "60e21bf3-94a4-42ac-9bbc-c2ee332bc9ed",
                 }
 
                 Folder.create(folder).then(data => {
                     res.send({
-                        status : 'success',
-                        message : 'Success create data',
-                        data : data
+                        status: 'success',
+                        message: 'Success create data',
+                        payload: data
                     })
                 }
                 ).catch(err => {
                     res.status(500).send({
-                    message:
-                        err.message
+                        message:
+                            err.message
                     });
                 });
             }
         });
+    },
+    findOne(req, res) {
+        let id = req.params.id;
+        Folder.findByPk(id)
+            .then(data => {
+                res.send({
+                    status: 'success',
+                    message: 'Success get data',
+                    payload: data
+                })
+            })
+            .catch(err => {
+                res.status(500).send({
+                    status: "error",
+                    message:
+                        err.message
+                });
+            });
     }
 }
