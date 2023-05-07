@@ -13,6 +13,7 @@ module.exports = app => {
     router.post('/folder', folder.create);
     router.get('/folder/:id', folder.findOne);
     router.put('/folder/:id', folder.update);
+    router.delete('/folder/:id', folder.delete);
 
     app.use('/api', router);
 }

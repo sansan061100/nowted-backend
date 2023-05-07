@@ -111,5 +111,31 @@ module.exports = {
                     });
             }
         });
+    },
+    delete(req, res) {
+        let id = req.params.id;
+        Folder.destroy({
+            where: { id: id }
+        })
+            .then(num => {
+                if (num == 1) {
+                    res.send({
+                        status: 'success',
+                        message: 'Success delete data',
+                    })
+                } else {
+                    res.send({
+                        status: 'error',
+                        message: `Cannot delete data with id=${id}. Maybe data was not found!`
+                    })
+                }
+            })
+            .catch(err => {
+                res.status(500).send({
+                    status: "error",
+                    message:
+                        err.message
+                });
+            });
     }
 }
