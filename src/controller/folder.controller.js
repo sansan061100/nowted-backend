@@ -74,5 +74,42 @@ module.exports = {
                         err.message
                 });
             });
+    },
+    update(req, res) {
+        let id = req.params.id;
+        const v = new Validator(req.body, {
+            name: 'required'
+        });
+
+        v.check().then((matched) => {
+            if (!matched) {
+                res.status(422).send(v.errors);
+            }
+            else {
+                Folder.update(req.body, {
+                    where: { id: id }
+                })
+                    .then(num => {
+                        if (num == 1) {
+                            res.send({
+                                status: 'success',
+                                message: 'Success update data',
+                            })
+                        } else {
+                            res.send({
+                                status: 'error',
+                                message: `Cannot update data with id=${id}. Maybe data was not found!`
+                            })
+                        }
+                    })
+                    .catch(err => {
+                        res.status(500).send({
+                            status: "error",
+                            message:
+                                err.message
+                        });
+                    });
+            }
+        });
     }
 }
