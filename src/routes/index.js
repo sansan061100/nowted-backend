@@ -10,6 +10,7 @@ module.exports = app => {
 
 
     router.get('/folder', folder.findAll);
+    router.post('/folder', folder.create);
 
     app.use('/api', router);
 }
