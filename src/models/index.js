@@ -22,6 +22,7 @@ const sequelize = new Sequelize(
 const db = {};
 
 db.notes = require("./notes.model.js")(sequelize, Sequelize);
+db.folder = require("./folder.model.js")(sequelize, Sequelize);
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;

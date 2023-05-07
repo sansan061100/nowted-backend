@@ -1,5 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
     const Note = sequelize.define("notes", {
+        id : {
+            type: Sequelize.STRING,
+            primaryKey: true,
+        },
         date : {
             type: Sequelize.DATE
         },
